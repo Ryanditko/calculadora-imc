@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-// CalculadoraIMCScreen()
+                    CalculadoraIMCScreen()
                 }
             }
         }
@@ -44,7 +44,6 @@ fun CalculadoraIMCScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //Dentro da Column inserir:
         Text(
             text = "Calculadora de IMC",
             fontSize = 24.sp,
@@ -54,14 +53,14 @@ fun CalculadoraIMCScreen() {
         OutlinedTextField(
             value = peso,
             onValueChange = { peso = it },
-            label = { Text("Peso (kg)") },
+            label = { Text("Digite seu peso (kg)") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = altura,
             onValueChange = { altura = it },
-            label = { Text("Altura (m)") },
+            label = { Text("Digite sua altura (m)") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(32.dp))
@@ -69,8 +68,16 @@ fun CalculadoraIMCScreen() {
         Button(
             onClick = {
                 if (peso.isNotEmpty() && altura.isNotEmpty()) {
-                    val imc = peso.toFloat() / (altura.toFloat() * altura.toFloat())
-//resultado = "Seu IMC: %.2f \n%s".format(imc, classificarIMC(imc))
+                    val p = peso.replace(",",".")
+                    val a = altura.replace(",",".")
+                    val p1 = p.toDoubleOrNull()
+                    val a1 = a.toDoubleOrNull()
+                    if (p1 != null && a1 != null) {
+                        val imc = p1 / (a1 * a1)
+                        resultado = "Seu IMC: %.2f \n%s".format(imc, classificarIMC(imc))
+                    } else {
+                        resultado = "Digite apenas valores numéricos"
+                    }
                 } else {
                     resultado = "Preencha todos os campos!"
                 }
@@ -88,13 +95,21 @@ fun CalculadoraIMCScreen() {
                 fontWeight = FontWeight.Medium
             )
         }
+
+        Button(
+            onClick = {
+                peso = ""
+                altura = ""
+                resultado = ""
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Restart")
+        }
     }
 }
 
-//Copie e cole acima do Preview
-
-// Observação descomentar o “resultado” do slide anterior
-private fun classificarIMC(imc: Float): String {
+private fun classificarIMC(imc: Double): String {
     return when {
         imc < 18.5 -> "Abaixo do peso"
         imc < 24.9 -> "Peso normal"
