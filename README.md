@@ -123,18 +123,5 @@ app/
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 👨‍💻 Autor
-
-Desenvolvido com ❤️ em Kotlin
-
----
-
-### 📞 Contato
-
-Se você tiver alguma dúvida ou sugestão sobre o projeto, sinta-se à vontade para abrir uma issue ou entrar em contato.
 
 **⭐ Se este projeto foi útil para você, considere dar uma estrela no repositório!**
