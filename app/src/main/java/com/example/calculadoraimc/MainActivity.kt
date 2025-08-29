@@ -1,8 +1,3 @@
-package com.example.calculadoraimc
-
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -176,7 +171,7 @@ fun CalculadoraIMCScreen() {
                             resultado = "%.2f".format(imc)
                             classificacao = classificarIMC(imc)
                         } else {
-                            resultado = "Digite apenas valores numéricos"
+                            resultado = "Digite apenas valores numéricos!"
                         }
                     } else {
                         resultado = "Preencha todos os campos!"
@@ -222,7 +217,7 @@ fun CalculadoraIMCScreen() {
         }
         Spacer(modifier = Modifier.height(60.dp))
 
-        //if (resultado.isNotEmpty()) {
+        if (classificacao.isNotEmpty()) {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -231,8 +226,7 @@ fun CalculadoraIMCScreen() {
                 elevation = CardDefaults.cardElevation(8.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.background,
-                    contentColor = MaterialTheme.colorScheme.onTertiary
-                )
+                    contentColor = MaterialTheme.colorScheme.onTertiary)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -258,8 +252,7 @@ fun CalculadoraIMCScreen() {
                 {
                     Text(text = "Classificação: ",
                         modifier = Modifier.padding(5.dp),
-                        fontSize = 21.sp,
-                        //color = MaterialTheme.colorScheme.background
+                        fontSize = 21.sp
                     )
 
                     Text(text = classificacao,
@@ -269,7 +262,25 @@ fun CalculadoraIMCScreen() {
                         color = corIMC(classificacao))
                 }
             }
-        //}
+        } else if (classificacao.isEmpty() && resultado.isNotEmpty()) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp)
+                    .border(width = 1.dp, color = MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(10.dp)),
+                elevation = CardDefaults.cardElevation(8.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onTertiary)
+            ) {
+                Text (
+                    text = resultado,
+                    modifier = Modifier.padding(10.dp),
+                    fontSize = 21.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
     } //fim da coluna principal
 }
 
